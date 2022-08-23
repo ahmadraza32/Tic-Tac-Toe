@@ -1,0 +1,138 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --width: 100px;
+    --size: calc(var(--width) * .9);
+}
+
+.board{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    min-height: 100vh;
+    align-content: center;
+}
+
+.ceil{
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.ceil.x,
+.ceil.circle{
+    cursor: not-allowed;
+}
+
+.ceil.circle::before,
+.ceil.x::after,
+.ceil.x::before{
+    background: #000;
+}
+
+.board.x .ceil:not(.x):not(.circle):hover::after,
+.board.x .ceil:not(.x):not(.circle):hover::before,
+.board.circle .ceil:not(.x):not(.circle):hover::before{
+    background-color: lightgrey;
+}
+
+.board.x .ceil:not(.x):not(.circle):hover::after,
+.board.x .ceil:not(.x):not(.circle):hover::before,
+.ceil.x::after,
+.ceil.x::before{
+    content: '';
+    height: var(--size);
+    position: absolute;
+    width: calc(var(--size) * .15);
+}
+
+.board.x .ceil:not(.x):not(.circle):hover::after,
+.ceil.x::after{
+    transform: rotate(45deg);
+}
+
+.board.x .ceil:not(.x):not(.circle):hover::before,
+.ceil.x::before{
+    transform: rotate(-45deg);
+}
+
+/* circle */
+.board.circle .ceil:not(.x):not(.circle):hover::after,
+.board.circle .ceil:not(.x):not(.circle):hover::before,
+.ceil.circle::after,
+.ceil.circle::before{
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.board.circle .ceil:not(.x):not(.circle):hover::before,
+.ceil.circle::before{
+    height: var(--size);
+    width: var(--size);
+}
+
+.board.circle .ceil:not(.x):not(.circle):hover::after,
+.ceil.circle::after{
+    width: calc(var(--size) * .7);
+    height: calc(var(--size) * .7);
+    background-color: white;
+}
+
+.ceil:first-child,
+.ceil:nth-child(2),
+.ceil:nth-child(3){
+    border-top: none;
+}
+
+.ceil:nth-child(3n + 1){
+    border-left: none;
+}
+
+.ceil:nth-child(3n + 3){
+    border-right: none;
+}
+
+.ceil:nth-child(8),
+.ceil:nth-child(7),
+.ceil:last-child{
+    border-bottom: none;
+}
+
+.winning-message{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: .9;
+    background: #000;
+    color: #fff;
+    display: none;
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+button{
+    display: inline-block;
+    margin-top: .8rem;
+    padding: .5rem 1rem;
+    cursor: pointer;
+}
+
+.show{
+    display: flex;
+}
